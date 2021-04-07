@@ -6,42 +6,44 @@
 /*   By: cmarguer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 16:41:28 by cmarguer          #+#    #+#             */
-/*   Updated: 2021/04/07 17:27:07 by cmarguer         ###   ########.fr       */
+/*   Updated: 2021/04/07 18:34:21 by cmarguer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libasm.h"
 
-void check_strlen()
-{
-	char *empty = "";
-	char *hello_world = "Hello world !";
-	char *alphabet = "abcdefghijklmnopqrstuvwxyz";
+# define WRITE(s, x)		printf("^%ld (`%s`:%ld)\n", ft_write(STDOUT_FILENO, s, x), s, x);
 
-	printf("================================\n\n");
-	printf("%-20s: \"%s\"\n", "char *", empty);
-	printf("%-20s: 0\n", "expected lenght");
-	printf("%-20s: %zu\n", "libc", strlen(empty));
-	printf("%-20s: %zu\n", "libasm", ft_strlen(empty));
-	printf("\n");
-	printf("%-20s: \"%s\"\n", "char *", hello_world);
-	printf("%-20s: 0\n", "expected lenght");
-	printf("%-20s: %zu\n", "libc", strlen(hello_world));
-	printf("%-20s: %zu\n", "libasm", ft_strlen(hello_world));
-	printf("\n");
-	printf("%-20s: \"%s\"\n", "char *", alphabet);
-	printf("%-20s: 0\n", "expected lenght");
-	printf("%-20s: %zu\n", "libc", strlen(alphabet));
-	printf("%-20s: %zu\n", "libasm", ft_strlen(alphabet));
-	printf("\n");
+// void check_strlen()
+// {
+// 	char *empty = "";
+// 	char *hello_world = "Hello world !";
+// 	char *alphabet = "abcdefghijklmnopqrstuvwxyz";
 
-	//------- NULL = SEGFAULT;
-	printf("%-20s: \"%s\"\n", "char *", alphabet);
-	printf("%-20s: 0\n", "expected lenght");
-	printf("%-20s: %zu\n", "libc", strlen("09gujed09gjn321u23rgt7f\n\twedfhsbahdsweriour!!!/*s4512cx-+\n\t"));
-	printf("%-20s: %zu\n", "libasm", ft_strlen("09gujed09gjn321u23rgt7f\n\twedfhsbahdsweriour!!!/*s4512cx-+\n\t"));
-	printf("\n");
-}
+// 	printf("================================\n\n");
+// 	printf("%-20s: \"%s\"\n", "char *", empty);
+// 	printf("%-20s: 0\n", "expected lenght");
+// 	printf("%-20s: %zu\n", "libc", strlen(empty));
+// 	printf("%-20s: %zu\n", "libasm", ft_strlen(empty));
+// 	printf("\n");
+// 	printf("%-20s: \"%s\"\n", "char *", hello_world);
+// 	printf("%-20s: 0\n", "expected lenght");
+// 	printf("%-20s: %zu\n", "libc", strlen(hello_world));
+// 	printf("%-20s: %zu\n", "libasm", ft_strlen(hello_world));
+// 	printf("\n");
+// 	printf("%-20s: \"%s\"\n", "char *", alphabet);
+// 	printf("%-20s: 0\n", "expected lenght");
+// 	printf("%-20s: %zu\n", "libc", strlen(alphabet));
+// 	printf("%-20s: %zu\n", "libasm", ft_strlen(alphabet));
+// 	printf("\n");
+
+// 	//------- NULL = SEGFAULT;
+// 	printf("%-20s: \"%s\"\n", "char *", alphabet);
+// 	printf("%-20s: 0\n", "expected lenght");
+// 	printf("%-20s: %zu\n", "libc", strlen("09gujed09gjn321u23rgt7f\n\twedfhsbahdsweriour!!!/*s4512cx-+\n\t"));
+// 	printf("%-20s: %zu\n", "libasm", ft_strlen("09gujed09gjn321u23rgt7f\n\twedfhsbahdsweriour!!!/*s4512cx-+\n\t"));
+// 	printf("\n");
+// }
 
 void clear_buffer(char *buffer, int size)
 {
@@ -127,31 +129,45 @@ void clear_buffer(char *buffer, int size)
 // 	// printf("\n");
 // }
 
-// void check_write()
-// {
-// 	char *hello_world = "Coucou\n";
-// 	char *empty = "";
+void check_write()
+{
+	char *hello_world = "Coucou";
+	char *empty = "";
 
-// 	printf("\n================================\n");
-// 	printf("========== FT_WRITE ============\n");
-// 	printf("================================\n\n");
-// 	printf("%-20s: \"%s\"\n", "char *", hello_world);
-// 	printf("%-20s: \"Libc:%zu\"\n", "libc", write(1, hello_world, 7));
-// 	// printf("\n");
-// 	printf("%-20s: \"Libasm:%zu\"\n", "libasm", ft_write(1, hello_world, 7));
-// 	printf("\n");
-// 	printf("%-20s: \"%s\"\n", "char *", empty);
-// 	printf("%-20s: \"Libc:%zu\"\n", "libc", write(1, empty, 0));
-// 	// printf("\n");
-// 	printf("%-20s: \"Libasm:%zu\"\n", "libasm", ft_write(1, empty, 0));
-// 	printf("\n");
-// 	printf("%-20s: \"%s\"\n", "char *", hello_world);
-// 	printf("%-20s: \"Libc:%zu\"\n", "libc", write(-7, NULL, 7));
-// 	// printf("\n");
-// 	printf("%-20s: \"Libasm:%zu\"\n", "libasm", ft_write(-7, NULL, 7));
-// 	// printf("\n");
+	printf("\n================================\n");
+	printf("========== FT_WRITE ============\n");
+	printf("================================\n\n");
 
-// }
+	printf("%-20s: \"%s!\"\n", "char *", hello_world);
+	printf("%-20s: \"Libc:%zu\"\n", "libc", write(1, hello_world, 7));
+	printf("%-20s: \"Libasm:%zu\"\n", "libasm", ft_write(1, hello_world, 7));
+	printf("\n");
+
+	printf("%-20s: \"%s\"\n", "char *", empty);
+	printf("%-20s: \"Libc:%zu\"\n", "libc", write(1, empty, 0));
+	// printf("\n");
+	printf("%-20s: \"Libasm:%zu\"\n", "libasm", ft_write(1, empty, 0));
+	printf("\n");
+	printf("%-20s: \"%s\"\n", "char *", hello_world);
+	printf("%-20s: \"Libc:%zu\"\n", "libc", write(-7, NULL, 7));
+	// printf("\n");
+	printf("%-20s: \"Libasm:%zu\"\n", "libasm", ft_write(-7, NULL, 7));
+	// printf("\n");
+
+
+	int fd1 = open("text.txt", O_RDWR);
+	//printf("%-20s: \"Libasm:%zu\"\n", "libasm", write(fd1, "nice dock", strlen("nice dock")));
+	printf("\n%-20s: \"Libasm:%zu\"\n", "libasm", ft_write(fd1, "nice dock", strlen("nice dock")));
+	printf("\n");
+
+
+	printf("\n--write\n");
+	WRITE("toto", 4L);
+	WRITE("totototo", 4L);
+	WRITE("totototo", 8L);
+	WRITE("toto", 2L);
+	printf("-done\n");
+}
 
 // void check_read()
 // {
@@ -259,10 +275,10 @@ void clear_buffer(char *buffer, int size)
 
 int main()
 {
-	check_strlen();
+	//check_strlen();
 	// check_strcpy();
 	// check_strcmp();
-	// check_write();
+	check_write();
 	// check_read();
 	// check_strdup();
 }
