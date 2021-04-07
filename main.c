@@ -6,13 +6,14 @@
 /*   By: cmarguer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 16:41:28 by cmarguer          #+#    #+#             */
-/*   Updated: 2021/04/07 18:34:21 by cmarguer         ###   ########.fr       */
+/*   Updated: 2021/04/07 18:51:16 by cmarguer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libasm.h"
 
 # define WRITE(s, x)		printf("^%ld (`%s`:%ld)\n", ft_write(STDOUT_FILENO, s, x), s, x);
+# define READ(b, x)			r = ft_read(STDIN_FILENO, buffer, x); printf("`%s`:%ld\n", buffer, r);
 
 // void check_strlen()
 // {
@@ -129,104 +130,105 @@ void clear_buffer(char *buffer, int size)
 // 	// printf("\n");
 // }
 
-void check_write()
-{
-	char *hello_world = "Coucou";
-	char *empty = "";
-
-	printf("\n================================\n");
-	printf("========== FT_WRITE ============\n");
-	printf("================================\n\n");
-
-	printf("%-20s: \"%s!\"\n", "char *", hello_world);
-	printf("%-20s: \"Libc:%zu\"\n", "libc", write(1, hello_world, 7));
-	printf("%-20s: \"Libasm:%zu\"\n", "libasm", ft_write(1, hello_world, 7));
-	printf("\n");
-
-	printf("%-20s: \"%s\"\n", "char *", empty);
-	printf("%-20s: \"Libc:%zu\"\n", "libc", write(1, empty, 0));
-	// printf("\n");
-	printf("%-20s: \"Libasm:%zu\"\n", "libasm", ft_write(1, empty, 0));
-	printf("\n");
-	printf("%-20s: \"%s\"\n", "char *", hello_world);
-	printf("%-20s: \"Libc:%zu\"\n", "libc", write(-7, NULL, 7));
-	// printf("\n");
-	printf("%-20s: \"Libasm:%zu\"\n", "libasm", ft_write(-7, NULL, 7));
-	// printf("\n");
-
-
-	int fd1 = open("text.txt", O_RDWR);
-	//printf("%-20s: \"Libasm:%zu\"\n", "libasm", write(fd1, "nice dock", strlen("nice dock")));
-	printf("\n%-20s: \"Libasm:%zu\"\n", "libasm", ft_write(fd1, "nice dock", strlen("nice dock")));
-	printf("\n");
-
-
-	printf("\n--write\n");
-	WRITE("toto", 4L);
-	WRITE("totototo", 4L);
-	WRITE("totototo", 8L);
-	WRITE("toto", 2L);
-	printf("-done\n");
-}
-
-// void check_read()
+// void check_write()
 // {
-// 	int fd = open("main.c", O_RDONLY);
-// 	char buff1[891];
-// 	int ret = 1;
+// 	char *hello_world = "Coucou";
+// 	char *empty = "";
+
 // 	printf("\n================================\n");
-// 	printf("========== FT_READ =============\n");
+// 	printf("========== FT_WRITE ============\n");
 // 	printf("================================\n\n");
-// 	printf("%-20s: \n", "header main.c | libc ");
-// 	ret = read(fd, buff1, 890);
-// 	buff1[ret] = 0;
-// 	printf("[return : %d]\n|%s|\n", ret, buff1);
-// 	printf("\n");
-// 	close(fd);
-// 	fd = open("main.c", O_RDONLY);
-// 	clear_buffer(buff1, 891);
-// 	printf("%-20s: \n", "header main.c | libasm ");
-// 	ret = ft_read(fd, buff1, 890);
-// 	buff1[ret] = 0;
-// 	printf("[return : %d]\n|%s|\n", ret, buff1);
-// 	printf("\n");
-// 	clear_buffer(buff1, 891);
-// 	close(fd);
 
-// 	fd = open("test", O_RDONLY);
-// 	printf("%-20s: \n", "file test | libc ");
-// 	ret = read(fd, buff1, 890);
-// 	buff1[ret] = 0;
-// 	printf("[return : %d]\n|%s|\n", ret, buff1);
+// 	printf("%-20s: \"%s!\"\n", "char *", hello_world);
+// 	printf("%-20s: \"Libc:%zu\"\n", "libc", write(1, hello_world, 7));
+// 	printf("%-20s: \"Libasm:%zu\"\n", "libasm", ft_write(1, hello_world, 7));
 // 	printf("\n");
-// 	close(fd);
-// 	fd = open("test", O_RDONLY);
-// 	clear_buffer(buff1, 891);
-// 	printf("%-20s: \n", "file test | libasm ");
-// 	ret = ft_read(fd, buff1, 890);
-// 	buff1[ret] = 0;
-// 	printf("[return : %d]\n|%s|\n", ret, buff1);
-// 	printf("\n");
-// 	clear_buffer(buff1, 891);
-// 	close(fd);
 
-// 	fd = open("wrong", O_RDONLY);
-// 	printf("%-20s: \n", "wrong | libc ");
-// 	ret = read(fd, buff1, 890);
-// 	buff1[ret] = 0;
-// 	printf("[return : %d]\n|%s|\n", ret, buff1);
+// 	printf("%-20s: \"%s\"\n", "char *", empty);
+// 	printf("%-20s: \"Libc:%zu\"\n", "libc", write(1, empty, 0));
+// 	// printf("\n");
+// 	printf("%-20s: \"Libasm:%zu\"\n", "libasm", ft_write(1, empty, 0));
 // 	printf("\n");
-// 	close(fd);
-// 	fd = open("wrong", O_RDONLY);
-// 	clear_buffer(buff1, 891);
-// 	printf("%-20s: \n", "wrong | libasm ");
-// 	ret = ft_read(fd, buff1, 890);
-// 	buff1[ret] = 0;
-// 	printf("[return : %d]\n|%s|\n", ret, buff1);
+// 	printf("%-20s: \"%s\"\n", "char *", hello_world);
+// 	printf("%-20s: \"Libc:%zu\"\n", "libc", write(-7, NULL, 7));
+// 	// printf("\n");
+// 	printf("%-20s: \"Libasm:%zu\"\n", "libasm", ft_write(-7, NULL, 7));
+// 	// printf("\n");
+
+
+// 	int fd1 = open("text.txt", O_RDWR);
+// 	//printf("%-20s: \"Libasm:%zu\"\n", "libasm", write(fd1, "nice dock", strlen("nice dock")));
+// 	printf("\n%-20s: \"Libasm:%zu\"\n", "libasm", ft_write(fd1, "nice dock", strlen("nice dock")));
 // 	printf("\n");
-// 	clear_buffer(buff1, 891);
-// 	close(fd);
+
+
+// 	printf("\n--write\n");
+// 	WRITE("toto", 4L);
+// 	WRITE("totototo", 4L);
+// 	WRITE("totototo", 8L);
+// 	WRITE("toto", 2L);
+// 	printf("-done\n");
 // }
+
+void check_read()
+{
+	int fd = open("main.c", O_RDONLY);
+	char buff1[891];
+	int ret = 1;
+	printf("\n================================\n");
+	printf("========== FT_READ =============\n");
+	printf("================================\n\n");
+	printf("%-20s: \n", "header main.c | libc ");
+	ret = read(fd, buff1, 890);
+	buff1[ret] = 0;
+	printf("[return : %d]\n|%s|\n", ret, buff1);
+	printf("\n");
+	close(fd);
+	fd = open("main.c", O_RDONLY);
+	clear_buffer(buff1, 891);
+	printf("%-20s: \n", "header main.c | libasm ");
+	ret = ft_read(fd, buff1, 890);
+	buff1[ret] = 0;
+	printf("[return : %d]\n|%s|\n", ret, buff1);
+	printf("\n");
+	clear_buffer(buff1, 891);
+	close(fd);
+
+	fd = open("test", O_RDONLY);
+	printf("%-20s: \n", "file test | libc ");
+	ret = read(fd, buff1, 890);
+	buff1[ret] = 0;
+	printf("[return : %d]\n|%s|\n", ret, buff1);
+	printf("\n");
+	close(fd);
+	fd = open("test", O_RDONLY);
+	clear_buffer(buff1, 891);
+	printf("%-20s: \n", "file test | libasm ");
+	ret = ft_read(fd, buff1, 890);
+	buff1[ret] = 0;
+	printf("[return : %d]\n|%s|\n", ret, buff1);
+	printf("\n");
+	clear_buffer(buff1, 891);
+	close(fd);
+
+	fd = open("wrong", O_RDONLY);
+	printf("%-20s: \n", "wrong | libc ");
+	ret = read(fd, buff1, 890);
+	buff1[ret] = 0;
+	printf("[return : %d]\n|%s|\n", ret, buff1);
+	printf("\n");
+	close(fd);
+	fd = open("wrong", O_RDONLY);
+	clear_buffer(buff1, 891);
+	printf("%-20s: \n", "wrong | libasm ");
+	ret = ft_read(fd, buff1, 890);
+	buff1[ret] = 0;
+	printf("[return : %d]\n|%s|\n", ret, buff1);
+	printf("\n");
+	clear_buffer(buff1, 891);
+	close(fd);
+
+}
 
 // void check_strdup()
 // {
@@ -275,10 +277,29 @@ void check_write()
 
 int main()
 {
+	int		i;
+	long	r;
+	char	buffer[100];
+	char	*tmp;
+	char	*tmp2;
+
+	r = 0;
+	i = 0;
+	while (i < 100)
+		buffer[i++] = 0;
 	//check_strlen();
 	// check_strcpy();
 	// check_strcmp();
-	check_write();
-	// check_read();
+	//check_write();
+	check_read();
+
+	printf("\n--read (Makefile)\n");
+	READ(buffer, 50);
+	READ(buffer, 25);
+	READ(buffer, 4);
+	READ(buffer, 26);
+	READ(buffer, 14);
+	READ(buffer, 0);
+	printf("-done\n");
 	// check_strdup();
 }
