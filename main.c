@@ -6,7 +6,7 @@
 /*   By: cmarguer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/07 16:41:28 by cmarguer          #+#    #+#             */
-/*   Updated: 2021/04/07 18:51:16 by cmarguer         ###   ########.fr       */
+/*   Updated: 2021/04/07 23:37:54 by cmarguer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 # define WRITE(s, x)		printf("^%ld (`%s`:%ld)\n", ft_write(STDOUT_FILENO, s, x), s, x);
 # define READ(b, x)			r = ft_read(STDIN_FILENO, buffer, x); printf("`%s`:%ld\n", buffer, r);
+# define STRCMP(a, b)		printf("`%s`:`%s` = %d (%d = strcmp)\n", a, b, ft_strcmp(a, b), strcmp(a, b));
 
 // void check_strlen()
 // {
@@ -96,39 +97,38 @@ void clear_buffer(char *buffer, int size)
 // 	// printf("\n");
 // }
 
-// void check_strcmp()
-// {
-// 	char *empty = "";
-// 	char *hello_world = "Hello world !";
-// 	char *hello_human = "Hello human !";
-// 	char *hello_world2 = "Hello world !";
+void check_strcmp()
+{
+	char *empty = "";
+	char *hello_world = "Hello world !";
+	char *hello_human = "Hello human !";
+	char *hello_world2 = "Hello world !";
 
-// 	printf("\n================================\n");
-// 	printf("========== FT_STRCMP ===========\n");
-// 	printf("================================\n\n");
-// 	printf("%-20s: \"%s\"\n", "char *", hello_world);
-// 	printf("%-20s: \"%s\"\n", "compared to", hello_human);
-// 	printf("%-20s: \"%d\"\n", "libc", strcmp(hello_world, hello_human));
-// 	printf("%-20s: \"%d\"\n", "libasm", ft_strcmp(hello_world, hello_human));
-// 	printf("\n");
-// 	printf("%-20s: \"%s\"\n", "char *", hello_world);
-// 	printf("%-20s: \"%s\"\n", "compared to", hello_world2);
-// 	printf("%-20s: \"%d\"\n", "libc", strcmp(hello_world, hello_world2));
-// 	printf("%-20s: \"%d\"\n", "libasm", ft_strcmp(hello_world, hello_world2));
-// 	printf("\n");
-// 	printf("%-20s: \"%s\"\n", "char *", hello_world2);
-// 	printf("%-20s: \"%s\"\n", "compared to", empty);
-// 	printf("%-20s: \"%d\"\n", "libc", strcmp(hello_world2, empty));
-// 	printf("%-20s: \"%d\"\n", "libasm", ft_strcmp(hello_world2, empty));
-// 	printf("\n");
-
-// 	// ------- NULL = SEGFAULT
-// 	// printf("%-20s: \"%s\"\n", "char *", hello_world2);
-// 	// printf("%-20s: %s\n", "compared to", "NULL");
-// 	// printf("%-20s: \"%d\"\n", "libc", strcmp(NULL, hello_world2));
-// 	// printf("%-20s: \"%d\"\n", "libasm", ft_strcmp(NULL, empty));
-// 	// printf("\n");
-// }
+	printf("\n================================\n");
+	printf("========== FT_STRCMP ===========\n");
+	printf("================================\n\n");
+	printf("%-20s: \"%s\"\n", "char *", hello_world);
+	printf("%-20s: \"%s\"\n", "compared to", hello_human);
+	printf("%-20s: \"%d = strcmp\"\n", "libc", strcmp(hello_world, hello_human));
+	printf("%-20s: \"%d\"\n", "libasm", ft_strcmp(hello_world, hello_human));
+	printf("\n");
+	printf("%-20s: \"%s\"\n", "char *", hello_world);
+	printf("%-20s: \"%s\"\n", "compared to", hello_world2);
+	printf("%-20s: \"%d\"\n", "libc", strcmp(hello_world, hello_world2));
+	printf("%-20s: \"%d\"\n", "libasm", ft_strcmp(hello_world, hello_world2));
+	printf("\n");
+	printf("%-20s: \"%s\"\n", "char *", hello_world2);
+	printf("%-20s: \"%s\"\n", "compared to", empty);
+	printf("%-20s: \"%d\"\n", "libc", strcmp(hello_world2, empty));
+	printf("%-20s: \"%d\"\n", "libasm", ft_strcmp(hello_world2, empty));
+	printf("\n");
+	// ------- NULL = SEGFAULT
+	// printf("%-20s: \"%s\"\n", "char *", hello_world2);
+	// printf("%-20s: %s\n", "compared to", "NULL");
+	// printf("%-20s: \"%d\"\n", "libc", strcmp(NULL, hello_world2));
+	// printf("%-20s: \"%d\"\n", "libasm", ft_strcmp(NULL, empty));
+	// printf("\n");
+}
 
 // void check_write()
 // {
@@ -170,65 +170,65 @@ void clear_buffer(char *buffer, int size)
 // 	printf("-done\n");
 // }
 
-void check_read()
-{
-	int fd = open("main.c", O_RDONLY);
-	char buff1[891];
-	int ret = 1;
-	printf("\n================================\n");
-	printf("========== FT_READ =============\n");
-	printf("================================\n\n");
-	printf("%-20s: \n", "header main.c | libc ");
-	ret = read(fd, buff1, 890);
-	buff1[ret] = 0;
-	printf("[return : %d]\n|%s|\n", ret, buff1);
-	printf("\n");
-	close(fd);
-	fd = open("main.c", O_RDONLY);
-	clear_buffer(buff1, 891);
-	printf("%-20s: \n", "header main.c | libasm ");
-	ret = ft_read(fd, buff1, 890);
-	buff1[ret] = 0;
-	printf("[return : %d]\n|%s|\n", ret, buff1);
-	printf("\n");
-	clear_buffer(buff1, 891);
-	close(fd);
+// void check_read()
+// {
+// 	int fd = open("main.c", O_RDONLY);
+// 	char buff1[891];
+// 	int ret = 1;
+// 	printf("\n================================\n");
+// 	printf("========== FT_READ =============\n");
+// 	printf("================================\n\n");
+// 	printf("%-20s: \n", "header main.c | libc ");
+// 	ret = read(fd, buff1, 890);
+// 	buff1[ret] = 0;
+// 	printf("[return : %d]\n|%s|\n", ret, buff1);
+// 	printf("\n");
+// 	close(fd);
+// 	fd = open("main.c", O_RDONLY);
+// 	clear_buffer(buff1, 891);
+// 	printf("%-20s: \n", "header main.c | libasm ");
+// 	ret = ft_read(fd, buff1, 890);
+// 	buff1[ret] = 0;
+// 	printf("[return : %d]\n|%s|\n", ret, buff1);
+// 	printf("\n");
+// 	clear_buffer(buff1, 891);
+// 	close(fd);
 
-	fd = open("test", O_RDONLY);
-	printf("%-20s: \n", "file test | libc ");
-	ret = read(fd, buff1, 890);
-	buff1[ret] = 0;
-	printf("[return : %d]\n|%s|\n", ret, buff1);
-	printf("\n");
-	close(fd);
-	fd = open("test", O_RDONLY);
-	clear_buffer(buff1, 891);
-	printf("%-20s: \n", "file test | libasm ");
-	ret = ft_read(fd, buff1, 890);
-	buff1[ret] = 0;
-	printf("[return : %d]\n|%s|\n", ret, buff1);
-	printf("\n");
-	clear_buffer(buff1, 891);
-	close(fd);
+// 	fd = open("test", O_RDONLY);
+// 	printf("%-20s: \n", "file test | libc ");
+// 	ret = read(fd, buff1, 890);
+// 	buff1[ret] = 0;
+// 	printf("[return : %d]\n|%s|\n", ret, buff1);
+// 	printf("\n");
+// 	close(fd);
+// 	fd = open("test", O_RDONLY);
+// 	clear_buffer(buff1, 891);
+// 	printf("%-20s: \n", "file test | libasm ");
+// 	ret = ft_read(fd, buff1, 890);
+// 	buff1[ret] = 0;
+// 	printf("[return : %d]\n|%s|\n", ret, buff1);
+// 	printf("\n");
+// 	clear_buffer(buff1, 891);
+// 	close(fd);
 
-	fd = open("wrong", O_RDONLY);
-	printf("%-20s: \n", "wrong | libc ");
-	ret = read(fd, buff1, 890);
-	buff1[ret] = 0;
-	printf("[return : %d]\n|%s|\n", ret, buff1);
-	printf("\n");
-	close(fd);
-	fd = open("wrong", O_RDONLY);
-	clear_buffer(buff1, 891);
-	printf("%-20s: \n", "wrong | libasm ");
-	ret = ft_read(fd, buff1, 890);
-	buff1[ret] = 0;
-	printf("[return : %d]\n|%s|\n", ret, buff1);
-	printf("\n");
-	clear_buffer(buff1, 891);
-	close(fd);
+// 	fd = open("wrong", O_RDONLY);
+// 	printf("%-20s: \n", "wrong | libc ");
+// 	ret = read(fd, buff1, 890);
+// 	buff1[ret] = 0;
+// 	printf("[return : %d]\n|%s|\n", ret, buff1);
+// 	printf("\n");
+// 	close(fd);
+// 	fd = open("wrong", O_RDONLY);
+// 	clear_buffer(buff1, 891);
+// 	printf("%-20s: \n", "wrong | libasm ");
+// 	ret = ft_read(fd, buff1, 890);
+// 	buff1[ret] = 0;
+// 	printf("[return : %d]\n|%s|\n", ret, buff1);
+// 	printf("\n");
+// 	clear_buffer(buff1, 891);
+// 	close(fd);
 
-}
+// }
 
 // void check_strdup()
 // {
@@ -289,17 +289,29 @@ int main()
 		buffer[i++] = 0;
 	//check_strlen();
 	// check_strcpy();
-	// check_strcmp();
-	//check_write();
-	check_read();
-
-	printf("\n--read (Makefile)\n");
-	READ(buffer, 50);
-	READ(buffer, 25);
-	READ(buffer, 4);
-	READ(buffer, 26);
-	READ(buffer, 14);
-	READ(buffer, 0);
+	 check_strcmp();
+	 printf("\n--strcmp\n");
+	STRCMP("", "");
+	STRCMP("toto", "toto");
+	STRCMP("", "toto");
+	STRCMP("toto", "");
+	STRCMP("toto", "totobar");
+	printf("`%s`:`%s` = %d\n", "TOTO", NULL, ft_strcmp("TOTO", NULL));
+	printf("`%s`:`%s` = %d\n", NULL, "TOTO", ft_strcmp(NULL, "TOTO"));
+	printf("`%s`:`%s` = %d\n", NULL, NULL, ft_strcmp(NULL, NULL));
 	printf("-done\n");
+
+
+	//check_write();
+	// check_read();
+
+	// printf("\n--read (Makefile)\n");
+	// READ(buffer, 50);
+	// READ(buffer, 25);
+	// READ(buffer, 4);
+	// READ(buffer, 26);
+	// READ(buffer, 14);
+	// READ(buffer, 0);
+	// printf("-done\n");
 	// check_strdup();
 }

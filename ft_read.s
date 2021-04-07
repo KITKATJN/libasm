@@ -11,5 +11,5 @@ ft_read:
 
 
 error:
-	mov	rax, 0
+	mov	rax, -1
 	ret

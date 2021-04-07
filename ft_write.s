@@ -1,3 +1,4 @@
+;Аргументы идут в регистры RDI , RSI , RDX , R10 , R8 , и R9
 section	.text
 	global ft_write
 
@@ -11,5 +12,5 @@ ft_write:
 
 
 error:
-	mov	rax, 0
+	mov	rax, -1
 	ret
